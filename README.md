@@ -1,2 +1,2 @@
 # user-service
-user service
+User service
