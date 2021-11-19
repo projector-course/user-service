@@ -23,7 +23,7 @@ function logResponse(ctx) {
 
 function koaLogger(ctx, next) {
   logRequest(ctx);
-  ctx.req.on('end', () => logResponse(ctx));
+  ctx.res.on('close', () => logResponse(ctx));
   ctx.log = logger;
   return next();
 }
