@@ -26,6 +26,9 @@
   "dependencies": {
     "@koa/router": "^10.1.1",
     "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0"
+    "koa-bodyparser": "^4.3.0",
+    "dotenv-defaults": "^3.0.0",
+    "pino": "^7.2.0",
+    "pino-pretty": "^7.2.0"
   }
 }
