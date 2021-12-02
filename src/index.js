@@ -1,8 +1,9 @@
 const Koa = require('koa');
+const getParser = require('koa-bodyparser');
 const { PORT, BASE_URL, SERVICE_NAME } = require('./services/configService');
 const { getModuleLogger } = require('./services/logService');
-const { koaLogger } = require('./middlewares/koaLogger');
 const { getMetrics } = require('./middlewares/getMetrics');
+const { koaLogger } = require('./middlewares/koaLogger');
 const { router } = require('./api/router');
 
 const logger = getModuleLogger(module);
@@ -11,6 +12,7 @@ logger.debug('APP CREATED');
 new Koa()
   .use(getMetrics)
   .use(koaLogger)
+  .use(getParser())
   .use(router.routes())
   .use(router.allowedMethods())
   .on('error', (e) => logger.error(e))

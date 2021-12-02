@@ -1,5 +1,5 @@
-const packageJson = require('../../../package.json');
-const { getModuleLogger } = require('../../services/logService');
+const packageJson = require('../../../../package.json');
+const { getModuleLogger } = require('../../../services/logService');
 
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
