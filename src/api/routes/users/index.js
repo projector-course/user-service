@@ -1,14 +1,15 @@
 const Router = require('@koa/router');
+const { verifyUserData } = require('../../../middlewares/verifyUserData');
 const { postUserRoute } = require('./postUserRoute');
-const { verifyUser } = require('../../../middlewares/verifyUser');
+const { verifyParams } = require('../../../middlewares/verifyParams');
 const { getUserRoute } = require('./getUserRoute');
 const { getServiceRoute } = require('./getServiceRoute');
 
 const router = new Router();
 
 router
-  .post('/', postUserRoute)
-  .use('/:id', verifyUser)
+  .post('/', verifyUserData, postUserRoute)
+  .use('/:id', verifyParams)
   .get('/:id', getUserRoute)
   .get('/:id/:service', getServiceRoute);
 
