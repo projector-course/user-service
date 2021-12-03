@@ -6,7 +6,7 @@ const createUserSchema = Joi.object({
 });
 
 const paramsSchema = Joi.object({
-  id: Joi.number().integer().positive(),
+  id: Joi.number().integer().min(0),
 });
 
 module.exports = { createUserSchema, paramsSchema };
