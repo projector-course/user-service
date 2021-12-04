@@ -7,7 +7,7 @@ const verifyParams = async (ctx, next) => {
   const { value, error } = paramsSchema.validate(params);
   if (error) ctx.throw(400, error.message);
 
-  const user = await findUser(value.id);
+  const user = await findUser(value);
   if (!user) ctx.throw(404);
 
   ctx.log.debug({ user }, 'USER');

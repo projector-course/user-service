@@ -4,14 +4,14 @@ const { getModuleLogger } = require('../../../services/logService');
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-const findUser = async (id) => {
+async function findUser(data) {
   const result = await db.users.findOne({
-    where: { id },
+    where: data,
   });
 
   const { dataValues: user } = result || {};
 
   return user;
-};
+}
 
 module.exports = { findUser };
