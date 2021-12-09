@@ -9,10 +9,6 @@ const NODE_ENV = process.env.NODE_ENV || STAGE.DEVELOPMENT;
 const { HOST, PORT } = process.env;
 const BASE_URL = `http://${HOST}:${PORT}`;
 
-/* -- services -- */
-const { SERVICES_LIST } = process.env;
-const SERVICES = SERVICES_LIST.split(';');
-
 /* -- logger settings -- */
 const { LOGGER_TARGET, LOGGER_LEVEL } = settings;
 const { LOG_TARGET, LOG_LEVEL } = process.env;
@@ -44,7 +40,6 @@ module.exports = {
   ...settings,
   NODE_ENV,
   BASE_URL,
-  SERVICES,
   LOG_TARGET: logTarget,
   LOG_LEVEL: logLevel,
   [NODE_ENV]: DB,

@@ -5,8 +5,8 @@ const createUserSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
-const paramsSchema = Joi.object({
+const getUserSchema = Joi.object({
   id: Joi.number().integer().min(0).required(),
 });
 
-module.exports = { createUserSchema, paramsSchema };
+module.exports = { createUserSchema, getUserSchema };

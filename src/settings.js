@@ -15,8 +15,11 @@ const LOGGER_TARGET = {
   STDOUT: 'stdout',
 };
 
+const SERVICES = ['videos', 'history', 'subscriptions'];
+
 module.exports = {
   STAGE,
   LOGGER_TARGET,
   LOGGER_LEVEL,
+  SERVICES,
 };

@@ -4,8 +4,8 @@ const db = require('../../../db/models');
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-function createUser(user) {
-  return db.users.create(user);
+async function createUser(data) {
+  return db.users.create(data);
 }
 
 module.exports = { createUser };

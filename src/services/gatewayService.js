@@ -9,7 +9,9 @@ function get(service, user, limit) {
   const userPar = `userId=${user.id}`;
   const limitPar = limit ? `&limit=${limit}` : '';
   const url = `${GATEWAY_URL}/${service}?${userPar}${limitPar}`;
+
   logger.debug(url);
+
   return getJson(url);
 }
 

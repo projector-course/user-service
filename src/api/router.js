@@ -17,10 +17,6 @@ const router = new Router({ prefix });
 
 router
   .get('/health', getHealthRoute)
-  // .use(async (ctx) => {
-  //   console.log(ctx.path);
-  //   ctx.body = 'RESPONSE';
-  // });
   .use(usersRouter.routes(), usersRouter.allowedMethods());
 
 module.exports = { router };

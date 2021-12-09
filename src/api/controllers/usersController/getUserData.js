@@ -1,16 +1,21 @@
 const { getModuleLogger } = require('../../../services/logService');
-const gateway = require('../../../services/gatewayService');
+const { getUser } = require('./getUser');
+const { VerificationError, VERIFICATION_ERROR_TYPE } = require('../../../errors/verificationError');
 const { SERVICES } = require('../../../services/configService');
+const gateway = require('../../../services/gatewayService');
 
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-async function getUserData(user) {
-  const requests = SERVICES.map((service) => gateway.get(service, user));
+async function getUserData({ id }) {
+  const user = await getUser({ id });
+  if (!user) throw new VerificationError(VERIFICATION_ERROR_TYPE.NOT_FOUND_ERROR);
+
+  const requests = SERVICES.map((service) => gateway.get(service, { id }));
 
   const results = await Promise.allSettled([...requests]);
 
-  const data = results.reduce((r, result, i) => {
+  const userData = results.reduce((r, result, i) => {
     const service = SERVICES[i];
     const { status, value, reason: e } = result;
 
@@ -27,7 +32,7 @@ async function getUserData(user) {
     return r;
   }, {});
 
-  return data;
+  return { ...user, ...userData };
 }
 
 module.exports = { getUserData };
