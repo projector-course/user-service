@@ -1,6 +1,5 @@
 const { getModuleLogger } = require('../../../services/logService');
 const { getUser } = require('./getUser');
-const { VerificationError, VERIFICATION_ERROR_TYPE } = require('../../../errors/verificationError');
 const { SERVICES } = require('../../../services/configService');
 const gateway = require('../../../services/gatewayService');
 
@@ -9,7 +8,6 @@ logger.debug('CONTROLLER CREATED');
 
 async function getUserData({ id }) {
   const user = await getUser({ id });
-  if (!user) throw new VerificationError(VERIFICATION_ERROR_TYPE.NOT_FOUND_ERROR);
 
   const requests = SERVICES.map((service) => gateway.get(service, { id }));
 

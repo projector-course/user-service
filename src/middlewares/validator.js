@@ -1,4 +1,5 @@
 const { createUserSchema, getUserSchema } = require('../api/schema');
+const { SERVICES } = require('../services/configService');
 
 const validate = {
   post: async (ctx, next) => {
@@ -9,9 +10,10 @@ const validate = {
   },
 
   get: (ctx, next) => {
-    const { params: { id } } = ctx;
+    const { params: { id, service } } = ctx;
     const { error } = getUserSchema.validate({ id });
     if (error) ctx.throw(400, error.message);
+    if (service && !SERVICES.includes(service)) ctx.throw(404);
     return next();
   },
 
