@@ -1,8 +1,8 @@
 const { get } = require('axios');
 const { HttpRequestError, REQUEST_ERROR_TYPE } = require('../errors/httpRequestError');
 
-function getJson(url) {
-  return get(url)
+function getJson(url, options) {
+  return get(url, options)
     .then((res) => {
       const { headers, data } = res;
       const { 'content-type': contentType } = headers;
@@ -18,7 +18,7 @@ function getJson(url) {
       if (e instanceof HttpRequestError) throw e;
       const { response, request, message } = e;
       if (response) throw new HttpRequestError(REQUEST_ERROR_TYPE.RESPONSE_ERROR, message);
-      else if (request) throw new HttpRequestError(REQUEST_ERROR_TYPE.NETWORK_ERROR, message);
+      if (request) throw new HttpRequestError(REQUEST_ERROR_TYPE.NETWORK_ERROR, message);
       throw e;
     });
 }
