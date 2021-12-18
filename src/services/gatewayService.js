@@ -1,4 +1,4 @@
-const { GATEWAY_URL, GATEWAY_TOKEN } = require('./configService');
+const { GATEWAY_URL, SERVICE_KEY } = require('./configService');
 const { getModuleLogger } = require('./logService');
 const { getJson } = require('../utils/getJson');
 
@@ -12,7 +12,8 @@ function get(service, userToken, limit) {
 
   logger.debug(url);
 
-  return getJson(url, { headers: { 'x-token': userToken, 'x-service-token': GATEWAY_TOKEN } });
+  const headers = { 'x-token': userToken, 'x-service-key': SERVICE_KEY };
+  return getJson(url, { headers });
 }
 
 module.exports = { get };
