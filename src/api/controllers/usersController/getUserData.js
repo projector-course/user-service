@@ -1,15 +1,12 @@
 const { getModuleLogger } = require('../../../services/logService');
-const { getUser } = require('./getUser');
 const { SERVICES } = require('../../../services/configService');
 const gateway = require('../../../services/gatewayService');
 
 const logger = getModuleLogger(module);
 logger.debug('CONTROLLER CREATED');
 
-async function getUserData({ id }) {
-  const user = await getUser({ id });
-
-  const requests = SERVICES.map((service) => gateway.get(service, { id }));
+async function getUserData(userToken) {
+  const requests = SERVICES.map((service) => gateway.get(service, userToken));
 
   const results = await Promise.allSettled([...requests]);
 
@@ -30,7 +27,7 @@ async function getUserData({ id }) {
     return r;
   }, {});
 
-  return { ...user, ...userData };
+  return userData;
 }
 
 module.exports = { getUserData };

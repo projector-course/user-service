@@ -1,4 +1,4 @@
-const { createUserSchema, getUserSchema } = require('../api/schema');
+const { createUserSchema, loginUserSchema, getUserSchema } = require('../api/schema');
 const { SERVICES } = require('../services/configService');
 
 const validate = {
@@ -9,10 +9,22 @@ const validate = {
     return next();
   },
 
-  get: (ctx, next) => {
-    const { params: { id, service } } = ctx;
-    const { error } = getUserSchema.validate({ id });
+  login: async (ctx, next) => {
+    const { request: { body } } = ctx;
+    const { error } = loginUserSchema.validate(body);
     if (error) ctx.throw(400, error.message);
+    return next();
+  },
+
+  get: async (ctx, next) => {
+    const { params } = ctx;
+    const { error } = getUserSchema.validate(params);
+    if (error) ctx.throw(400, error.message);
+    return next();
+  },
+
+  service: (ctx, next) => {
+    const { params: { service } } = ctx;
     if (service && !SERVICES.includes(service)) ctx.throw(404);
     return next();
   },
