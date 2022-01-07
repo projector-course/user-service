@@ -5,7 +5,6 @@ const { PREFIX, SERVICE_KEY } = require('../../../src/services/configService');
 const {
   TEST_CREATE_DATA, TEST_LOGIN_DATA, TEST_ME_DATA, TEST_GET_DATA,
 } = require('./data');
-const { logger } = require('../../../src/services/logService');
 
 let server;
 let request;
@@ -22,7 +21,6 @@ beforeAll(async () => {
 afterAll(() => {
   server.close();
   db.sequelize.close();
-  logger.close();
 });
 
 describe('Check / route', () => {
