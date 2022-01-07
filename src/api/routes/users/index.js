@@ -11,20 +11,21 @@ const { getUserService } = require('../../controllers/usersController/getUserSer
 const router = new Router();
 
 /*
-  - POST  /users { data: { name, email, password } }  => создаём пользователя
-  - POST  /users/login { data: { name, email } }      => логинизация
-  - GET   /users / me                                 =>
+  - POST  /users { data: { name, email, password } }    => создаём пользователя
+  - POST  /users / login { data: { email, password } }  => логинизация
+  - GET   /users / me                                   =>
       получаем польз., его подписки, видео и историю
-  - GET   /users / service / history                  => получаем историю просмотров пользователя
-  - GET   /users / service / subscriptions            => получаем подписки пользователя
-  - GET   /users / service / videos                   => получаем видео пользователя
-  - GET   /users / :id                                => получаем пользователя
+  - GET   /users / service / history                    => получаем историю просмотров пользователя
+  - GET   /users / service / subscriptions              => получаем подписки пользователя
+  - GET   /users / service / videos                     => получаем видео пользователя
+  - GET   /users / :id                                  => получаем пользователя
 */
 
 router.post('/', validate.post, async (ctx) => {
   const { path, request: { body } } = ctx;
   ctx.log.debug('ROUTE: %s', path);
   const user = await createUser(body);
+  ctx.status = 201;
   ctx.body = user;
 });
 
